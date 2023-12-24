@@ -31,3 +31,10 @@
   align-items: flex-start;
   gap: 1rem;
 }
+
+.spacedColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}

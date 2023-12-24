@@ -3,7 +3,10 @@ import type { TableColumnsType } from "antd";
 import { Button, Table } from "antd";
 import { deleteDump } from "@/services/database";
 import { StockRuleProduct } from "@prisma/client";
-import { StockRuleWithProducts } from "@/services/database/stockRule";
+import {
+  StockRuleWithProducts,
+  deleteStockRule,
+} from "@/services/database/stockRule";
 import dayjs from "dayjs";
 
 type Props = {
@@ -46,7 +49,9 @@ export default function StockRulesTable(props: Props) {
       key: "operation",
       render: (text, record) => (
         <Button
-          onClick={() => deleteDump(record.id).then(() => props.onDelete())}
+          onClick={() =>
+            deleteStockRule(record.title).then(() => props.onDelete())
+          }
         >
           Remover
         </Button>

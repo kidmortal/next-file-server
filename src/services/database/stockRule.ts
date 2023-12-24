@@ -46,3 +46,13 @@ export async function createStockRules(ruleTables: ExcelStockRuleTable[]) {
     });
   }
 }
+
+export async function deleteStockRule(title: string) {
+  const result = await prisma.stockRuleTable.delete({
+    where: {
+      title,
+    },
+  });
+
+  return result;
+}

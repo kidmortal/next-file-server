@@ -52,32 +52,19 @@ export default function Home() {
             query all products dumps
           </Button>
         </div>
-        <span>Upload stock info</span>
-        <UploadFormStock
-          onSuccess={() => {
-            openNotificationWithIcon({
-              api,
-              type: "success",
-              message: "Added new dump form",
-            });
-            fetchDumpData();
-          }}
-        />
-        <span>Upload stock rules</span>
-        <UploadFormStockRules
-          onSuccess={() => {
-            openNotificationWithIcon({
-              api,
-              type: "success",
-              message: "Added new dump form",
-            });
-            fetchDumpData();
-          }}
-        />
       </div>
       <div className={styles.rightPanel}>
-        <div>
-          <span>Estoque atual</span>
+        <div className={styles.spacedColumn}>
+          <UploadFormStock
+            onSuccess={() => {
+              openNotificationWithIcon({
+                api,
+                type: "success",
+                message: "Added new dump form",
+              });
+              fetchDumpData();
+            }}
+          />
           <DumpsTable
             onSuccess={() => {
               fetchDumpData();
@@ -93,8 +80,17 @@ export default function Home() {
             dumpData={dumpData}
           />
         </div>
-        <div>
-          <span>Regra de estoque</span>
+        <div className={styles.spacedColumn}>
+          <UploadFormStockRules
+            onSuccess={() => {
+              openNotificationWithIcon({
+                api,
+                type: "success",
+                message: "Added new dump form",
+              });
+              fetchDumpData();
+            }}
+          />
           <StockRulesTable
             onSuccess={() => {
               fetchDumpData();
