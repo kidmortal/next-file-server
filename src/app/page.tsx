@@ -1,17 +1,52 @@
 "use client";
-import { useEffect } from "react";
-import styles from "./page.module.css";
+import DumpsTable from "@/components/DumpsTable";
+import styles from "./styles.module.scss";
 import { UploadForm } from "@/components/UploadForm";
-import { deleteAllProducts, getAllProductDumps } from "@/services/database";
+import {
+  ProductDumps,
+  deleteAllDumps,
+  deleteAllProducts,
+  getAllProductDumps,
+} from "@/services/database";
+import { Button } from "antd";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [dumpData, setDumpData] = useState<ProductDumps>([]);
+
+  async function fetchDumpData() {
+    const dumpData = await getAllProductDumps();
+    setDumpData(dumpData);
+  }
+
+  useEffect(() => {
+    fetchDumpData();
+  }, []);
+
   return (
     <div className={styles.container}>
-      <button onClick={() => deleteAllProducts()}>delete all products</button>
-      <button onClick={() => getAllProductDumps()}>
-        query all products dumps
-      </button>
-      <UploadForm />
+      <div className={styles.sidePanel}>
+        <div className={styles.actionButtons}>
+          <Button
+            onClick={() => {
+              deleteAllDumps().then(() => {
+                fetchDumpData();
+              });
+            }}
+            danger
+          >
+            delete all dumps
+          </Button>
+          <Button onClick={() => getAllProductDumps()}>
+            query all products dumps
+          </Button>
+        </div>
+
+        <UploadForm onSuccess={() => fetchDumpData()} />
+      </div>
+      <div>
+        <DumpsTable onSuccess={() => fetchDumpData()} dumpData={dumpData} />
+      </div>
     </div>
   );
 }

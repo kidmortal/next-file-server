@@ -1,9 +1,14 @@
 "use client";
 
+import { Input } from "antd";
 import { useState } from "react";
+import styles from "./style.module.scss";
 
-export function UploadForm() {
-  const [result, setResult] = useState();
+type Props = {
+  onSuccess: () => void;
+};
+
+export function UploadForm(props: Props) {
   const [file, setFile] = useState<File>();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -21,7 +26,7 @@ export function UploadForm() {
       // handle the error
       if (!res.ok) throw new Error(await res.text());
       res.json().then((data) => {
-        setResult(data.result);
+        props.onSuccess();
       });
     } catch (e: any) {
       // Handle errors here
@@ -30,25 +35,14 @@ export function UploadForm() {
   };
 
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "6px",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {result}
-      </div>
+    <div className={styles.container}>
       <form onSubmit={onSubmit}>
-        <input
+        <Input
           type="file"
           name="file"
           onChange={(e) => setFile(e.target.files?.[0])}
         />
-        <input type="submit" value="Upload" />
+        <Input type="submit" value="Upload" />
       </form>
     </div>
   );
