@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@prisma/client': ^5.7.1
   '@types/node': ^20
   '@types/react': ^18
   '@types/react-dom': ^18
@@ -8,6 +9,7 @@ specifiers:
   eslint-config-next: 14.0.4
   exceljs: ^4.4.0
   next: 14.0.4
+  prisma: ^5.7.1
   react: ^18
   react-dom: ^18
   typescript: ^5
@@ -19,11 +21,13 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
 
 devDependencies:
+  '@prisma/client': 5.7.1_prisma@5.7.1
   '@types/node': 20.10.5
   '@types/react': 18.2.45
   '@types/react-dom': 18.2.18
   eslint: 8.56.0
   eslint-config-next: 14.0.4_xdgzedli73k7lw4xlyzszm74om
+  prisma: 5.7.1
   typescript: 5.3.3
 
 packages:
@@ -230,6 +234,51 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.16.0
+    dev: true
+
+  /@prisma/client/5.7.1_prisma@5.7.1:
+    resolution: {integrity: sha512-TUSa4nUcC4nf/e7X3jyO1pEd6XcI/TLRCA0KjkA46RDIpxUaRsBYEOqITwXRW2c0bMFyKcCRXrH4f7h4q9oOlg==}
+    engines: {node: '>=16.13'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      prisma: 5.7.1
+    dev: true
+
+  /@prisma/debug/5.7.1:
+    resolution: {integrity: sha512-yrVSO/YZOxdeIxcBtZ5BaNqUfPrZkNsAKQIQg36cJKMxj/VYK3Vk5jMKkI+gQLl0KReo1YvX8GWKfV788SELjw==}
+    dev: true
+
+  /@prisma/engines-version/5.7.1-1.0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5:
+    resolution: {integrity: sha512-dIR5IQK/ZxEoWRBDOHF87r1Jy+m2ih3Joi4vzJRP+FOj5yxCwS2pS5SBR3TWoVnEK1zxtLI/3N7BjHyGF84fgw==}
+    dev: true
+
+  /@prisma/engines/5.7.1:
+    resolution: {integrity: sha512-R+Pqbra8tpLP2cvyiUpx+SIKglav3nTCpA+rn6826CThviQ8yvbNG0s8jNpo51vS9FuZO3pOkARqG062vKX7uA==}
+    requiresBuild: true
+    dependencies:
+      '@prisma/debug': 5.7.1
+      '@prisma/engines-version': 5.7.1-1.0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5
+      '@prisma/fetch-engine': 5.7.1
+      '@prisma/get-platform': 5.7.1
+    dev: true
+
+  /@prisma/fetch-engine/5.7.1:
+    resolution: {integrity: sha512-9ELauIEBkIaEUpMIYPRlh5QELfoC6pyHolHVQgbNxglaINikZ9w9X7r1TIePAcm05pCNp2XPY1ObQIJW5nYfBQ==}
+    dependencies:
+      '@prisma/debug': 5.7.1
+      '@prisma/engines-version': 5.7.1-1.0ca5ccbcfa6bdc81c003cf549abe4269f59c41e5
+      '@prisma/get-platform': 5.7.1
+    dev: true
+
+  /@prisma/get-platform/5.7.1:
+    resolution: {integrity: sha512-eDlswr3a1m5z9D/55Iyt/nZqS5UpD+DZ9MooBB3hvrcPhDQrcf9m4Tl7buy4mvAtrubQ626ECtb8c6L/f7rGSQ==}
+    dependencies:
+      '@prisma/debug': 5.7.1
     dev: true
 
   /@rushstack/eslint-patch/1.6.1:
@@ -2086,6 +2135,15 @@ packages:
   /prelude-ls/1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+    dev: true
+
+  /prisma/5.7.1:
+    resolution: {integrity: sha512-ekho7ziH0WEJvC4AxuJz+ewRTMskrebPcrKuBwcNzVDniYxx+dXOGcorNeIb9VEMO5vrKzwNYvhD271Ui2jnNw==}
+    engines: {node: '>=16.13'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@prisma/engines': 5.7.1
     dev: true
 
   /process-nextick-args/2.0.1:

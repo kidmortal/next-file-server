@@ -15,11 +15,13 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@prisma/client": "^5.7.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
+    "prisma": "^5.7.1",
     "typescript": "^5"
   }
 }

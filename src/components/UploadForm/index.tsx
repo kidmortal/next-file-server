@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export function UploadForm() {
-  const [result, setResult] = useState<string[]>([]);
+  const [result, setResult] = useState();
   const [file, setFile] = useState<File>();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,9 +40,7 @@ export function UploadForm() {
           alignItems: "center",
         }}
       >
-        {result.map((name, id) => (
-          <span key={id}>{name}</span>
-        ))}
+        {result}
       </div>
       <form onSubmit={onSubmit}>
         <input
