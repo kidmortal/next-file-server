@@ -14,7 +14,7 @@ type Props = {
 export function UploadFormStockRules(props: Props) {
   const uploadProps: UploadProps = {
     name: "file",
-    multiple: true,
+    multiple: false,
     action: "/api/database/rules",
     onChange(info) {
       const { status } = info.file;
@@ -40,12 +40,9 @@ export function UploadFormStockRules(props: Props) {
           <InboxOutlined />
         </p>
         <p className="ant-upload-text">
-          Click or drag file to this area to upload
+          Clique ou arraste para adicionar arquivo
         </p>
-        <p className="ant-upload-hint">
-          Support for a single or bulk upload. Strictly prohibited from
-          uploading company data or other banned files.
-        </p>
+        <p className="ant-upload-hint">Adicionar planilha de regras</p>
       </Dragger>
     </div>
   );

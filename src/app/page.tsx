@@ -36,60 +36,57 @@ export default function Home() {
   return (
     <div className={styles.container}>
       {contextHolder}
-      <div className={styles.sidePanel}></div>
-      <div className={styles.rightPanel}>
-        <div className={styles.spacedColumn}>
-          <UploadFormStock
-            onSuccess={() => {
-              openNotificationWithIcon({
-                api,
-                type: "success",
-                message: "Added new dump form",
-              });
-              fetchDumpData();
-            }}
-          />
-          <DumpsTable
-            onSuccess={() => {
-              fetchDumpData();
-            }}
-            onDelete={() => {
-              fetchDumpData();
-              openNotificationWithIcon({
-                api,
-                type: "warning",
-                message: "Dump removed",
-              });
-            }}
-            dumpData={dumpData}
-          />
-        </div>
-        <div className={styles.spacedColumn}>
-          <UploadFormStockRules
-            onSuccess={() => {
-              openNotificationWithIcon({
-                api,
-                type: "success",
-                message: "Added new dump form",
-              });
-              fetchDumpData();
-            }}
-          />
-          <StockRulesTable
-            onSuccess={() => {
-              fetchDumpData();
-            }}
-            onDelete={() => {
-              fetchDumpData();
-              openNotificationWithIcon({
-                api,
-                type: "warning",
-                message: "Dump removed",
-              });
-            }}
-            stockRule={rules}
-          />
-        </div>
+      <div className={styles.spacedColumn}>
+        <UploadFormStock
+          onSuccess={() => {
+            openNotificationWithIcon({
+              api,
+              type: "success",
+              message: "Added new dump form",
+            });
+            fetchDumpData();
+          }}
+        />
+        <DumpsTable
+          onSuccess={() => {
+            fetchDumpData();
+          }}
+          onDelete={() => {
+            fetchDumpData();
+            openNotificationWithIcon({
+              api,
+              type: "warning",
+              message: "Dump removed",
+            });
+          }}
+          dumpData={dumpData}
+        />
+      </div>
+      <div className={styles.spacedColumn}>
+        <UploadFormStockRules
+          onSuccess={() => {
+            openNotificationWithIcon({
+              api,
+              type: "success",
+              message: "Added new dump form",
+            });
+            fetchDumpData();
+          }}
+        />
+        <StockRulesTable
+          onSuccess={() => {
+            fetchDumpData();
+          }}
+          onDelete={() => {
+            fetchDumpData();
+            openNotificationWithIcon({
+              api,
+              type: "warning",
+              message: "Dump removed",
+            });
+          }}
+          stockRule={rules}
+        />
       </div>
     </div>
   );

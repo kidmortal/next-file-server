@@ -49,10 +49,6 @@ export default function StockRulesTable(props: Props) {
         columns={columns}
         dataSource={info.StockRuleProduct}
         pagination={false}
-        scroll={{
-          x: 300,
-          y: 300,
-        }}
         rowKey="id"
       />
     );
