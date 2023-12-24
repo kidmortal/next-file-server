@@ -7,6 +7,7 @@ specifiers:
   '@types/react': ^18
   '@types/react-dom': ^18
   antd: ^5.12.5
+  dayjs: ^1.11.10
   eslint: ^8
   eslint-config-next: 14.0.4
   exceljs: ^4.4.0
@@ -20,6 +21,7 @@ specifiers:
 dependencies:
   '@ant-design/icons': 5.2.6_biqbaboplfbrettd7655fr4n2y
   antd: 5.12.5_biqbaboplfbrettd7655fr4n2y
+  dayjs: 1.11.10
   exceljs: 4.4.0
   next: 14.0.4_2sxiyfzeap2fgw7t7svnurc6pi
   react: 18.2.0

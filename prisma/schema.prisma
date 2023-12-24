@@ -24,3 +24,20 @@ model StockDump {
   createdAt DateTime       @default(now())
   products  StockProduct[]
 }
+
+model StockRuleTable {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  title            String             @unique
+  createdAt        DateTime           @default(now()) @updatedAt
+  StockRuleProduct StockRuleProduct[]
+}
+
+model StockRuleProduct {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  sku              String
+  publishCode      String
+  stockRule        Int
+  price            Float
+  StockRuleTableId String         @db.ObjectId
+  StockRuleTable   StockRuleTable @relation(fields: [StockRuleTableId], references: [id], onDelete: Cascade)
+}

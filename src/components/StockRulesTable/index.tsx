@@ -2,33 +2,23 @@ import React from "react";
 import type { TableColumnsType } from "antd";
 import { Button, Table } from "antd";
 import { deleteDump } from "@/services/database";
+import { StockRuleProduct } from "@prisma/client";
+import { StockRuleWithProducts } from "@/services/database/stockRule";
+import dayjs from "dayjs";
 
-type DumpProducts = {
-  id: string;
-  sku: string;
-  stock: number;
-  stockDumpId: string;
-};
-
-type DumpDataProps = {
-  id: string;
-  author: string;
-  createdAt: Date;
-  products: DumpProducts[];
-};
 type Props = {
-  dumpData?: DumpDataProps[];
+  stockRule?: StockRuleWithProducts[];
   onSuccess: () => void;
   onDelete: () => void;
 };
 
-export default function DumpsTable(props: Props) {
-  const dumps = props.dumpData;
+export default function StockRulesTable(props: Props) {
+  const dumps = props.stockRule;
 
   if (!dumps) return <></>;
 
-  const productsRowRender = (info: DumpDataProps) => {
-    const columns: TableColumnsType<DumpProducts> = [
+  const productsRowRender = (info: StockRuleWithProducts) => {
+    const columns: TableColumnsType<StockRuleProduct> = [
       { title: "SKU", dataIndex: "sku", key: "sku" },
       { title: "Stock", dataIndex: "stock", key: "stock" },
     ];
@@ -36,21 +26,21 @@ export default function DumpsTable(props: Props) {
     return (
       <Table
         columns={columns}
-        dataSource={info.products}
+        dataSource={info.StockRuleProduct}
         pagination={false}
         rowKey="id"
       />
     );
   };
 
-  const columns: TableColumnsType<DumpDataProps> = [
+  const columns: TableColumnsType<StockRuleWithProducts> = [
     {
-      title: "Date",
+      title: "Atualizado em",
       dataIndex: "createdAt",
       key: "createdAt",
-      render: (v: Date) => v.toISOString(),
+      render: (v: Date) => dayjs(v).format("DD-MM-YYYY HH:mm"),
     },
-    { title: "Creator", dataIndex: "author", key: "author" },
+    { title: "Nome", dataIndex: "title", key: "title" },
     {
       title: "Action",
       key: "operation",
@@ -58,7 +48,7 @@ export default function DumpsTable(props: Props) {
         <Button
           onClick={() => deleteDump(record.id).then(() => props.onDelete())}
         >
-          Remove
+          Remover
         </Button>
       ),
     },

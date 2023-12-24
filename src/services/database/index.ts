@@ -1,6 +1,6 @@
 "use server";
 import { ExcelStockProduct } from "@/utils/excelParser";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "./db";
 
 export type ProductDumps = {
   id: string;
@@ -13,8 +13,6 @@ export type ProductDumps = {
     stockDumpId: string;
   }[];
 }[];
-
-const prisma = new PrismaClient();
 
 export async function createProductDump(
   excelProductStock: ExcelStockProduct[],

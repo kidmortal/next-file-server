@@ -8,7 +8,7 @@ type Props = {
   onSuccess: () => void;
 };
 
-export function UploadForm(props: Props) {
+export function UploadFormStockRules(props: Props) {
   const [file, setFile] = useState<File>();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -19,7 +19,7 @@ export function UploadForm(props: Props) {
       const data = new FormData();
       data.set("file", file);
 
-      const res = await fetch("/api/database", {
+      const res = await fetch("/api/database/rules", {
         method: "POST",
         body: data,
       });

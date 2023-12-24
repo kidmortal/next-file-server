@@ -6,6 +6,47 @@ export type ExcelStockProduct = {
   stock: number;
 };
 
+type StockRule = {
+  sku: string;
+  publishCode: string;
+  stockRule: number;
+  price: number;
+};
+
+export type ExcelStockRuleTable = {
+  title: string;
+  rules: StockRule[];
+};
+
+export async function parseExcelToStockRuleArray(excelFile: ExcelJS.Workbook) {
+  const stockRules: ExcelStockRuleTable[] = [];
+  excelFile.worksheets.forEach((worksheet) => {
+    const stockRuleTableName = worksheet.name;
+    const products: StockRule[] = [];
+    const rows = worksheet.getRows(1, worksheet.rowCount);
+    rows?.forEach((row) => {
+      const sku = row.getCell(1).toString();
+      const publishCode = row.getCell(2).toString();
+      const stockRule = parseInt(row.getCell(3).toString());
+      const price = parseFloat(row.getCell(4).toString());
+      if (stockRule && price) {
+        products.push({
+          sku,
+          publishCode,
+          stockRule,
+          price,
+        });
+      }
+    });
+    stockRules.push({
+      title: stockRuleTableName,
+      rules: products,
+    });
+  });
+  console.log(stockRules);
+  return stockRules;
+}
+
 export async function parseExcelToStockArray(excelFile: ExcelJS.Workbook) {
   const stockDump: ExcelStockProduct[] = [];
   const sheet = excelFile.getWorksheet(1);
