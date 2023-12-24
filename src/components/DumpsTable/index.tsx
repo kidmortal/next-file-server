@@ -38,6 +38,10 @@ export default function DumpsTable(props: Props) {
         columns={columns}
         dataSource={info.products}
         pagination={false}
+        scroll={{
+          x: 300,
+          y: 300,
+        }}
         rowKey="id"
       />
     );

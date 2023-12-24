@@ -36,23 +36,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       {contextHolder}
-      <div className={styles.sidePanel}>
-        <div className={styles.actionButtons}>
-          <Button
-            onClick={() => {
-              deleteAllDumps().then(() => {
-                fetchDumpData();
-              });
-            }}
-            danger
-          >
-            delete all dumps
-          </Button>
-          <Button onClick={() => getAllProductDumps()}>
-            query all products dumps
-          </Button>
-        </div>
-      </div>
+      <div className={styles.sidePanel}></div>
       <div className={styles.rightPanel}>
         <div className={styles.spacedColumn}>
           <UploadFormStock

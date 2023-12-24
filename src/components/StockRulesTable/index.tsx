@@ -23,7 +23,25 @@ export default function StockRulesTable(props: Props) {
   const productsRowRender = (info: StockRuleWithProducts) => {
     const columns: TableColumnsType<StockRuleProduct> = [
       { title: "SKU", dataIndex: "sku", key: "sku" },
-      { title: "Stock", dataIndex: "stock", key: "stock" },
+      {
+        title: "Código do anuncio",
+        dataIndex: "publishCode",
+        key: "publishCode",
+      },
+      { title: "Regra de Estoque", dataIndex: "stockRule", key: "stockRule" },
+      {
+        title: "Preço",
+        dataIndex: "price",
+        key: "price",
+        render: (value: number) => (
+          <span>
+            {value.toLocaleString("pt-br", {
+              style: "currency",
+              currency: "BRL",
+            })}
+          </span>
+        ),
+      },
     ];
 
     return (
@@ -31,6 +49,10 @@ export default function StockRulesTable(props: Props) {
         columns={columns}
         dataSource={info.StockRuleProduct}
         pagination={false}
+        scroll={{
+          x: 300,
+          y: 300,
+        }}
         rowKey="id"
       />
     );
@@ -65,6 +87,7 @@ export default function StockRulesTable(props: Props) {
         columns={columns}
         expandable={{
           expandedRowRender: productsRowRender,
+
           defaultExpandedRowKeys: [1],
         }}
         rowKey={"id"}
