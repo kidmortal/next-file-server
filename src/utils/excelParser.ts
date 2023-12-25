@@ -6,23 +6,18 @@ export type ExcelStockProduct = {
   stock: number;
 };
 
-type StockRule = {
+export type ExcelStockRuleProduct = {
   sku: string;
   publishCode: string;
   stockRule: number;
   price: number;
-};
-
-export type ExcelStockRuleTable = {
-  title: string;
-  rules: StockRule[];
+  category: string;
 };
 
 export async function parseExcelToStockRuleArray(excelFile: ExcelJS.Workbook) {
-  const stockRules: ExcelStockRuleTable[] = [];
+  const products: ExcelStockRuleProduct[] = [];
   excelFile.worksheets.forEach((worksheet) => {
-    const stockRuleTableName = worksheet.name;
-    const products: StockRule[] = [];
+    const category = worksheet.name;
     const rows = worksheet.getRows(1, worksheet.rowCount);
     rows?.forEach((row) => {
       const sku = row.getCell(1).toString();
@@ -35,16 +30,12 @@ export async function parseExcelToStockRuleArray(excelFile: ExcelJS.Workbook) {
           publishCode,
           stockRule,
           price,
+          category,
         });
       }
     });
-    stockRules.push({
-      title: stockRuleTableName,
-      rules: products,
-    });
   });
-  console.log(stockRules);
-  return stockRules;
+  return products;
 }
 
 export async function parseExcelToStockArray(excelFile: ExcelJS.Workbook) {

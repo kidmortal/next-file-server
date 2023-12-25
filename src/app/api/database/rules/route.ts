@@ -1,12 +1,7 @@
-import { writeFile } from "fs/promises";
 import { NextResponse, NextRequest } from "next/server";
 import * as ExcelJS from "exceljs";
-import {
-  parseExcelToStockArray,
-  parseExcelToStockRuleArray,
-} from "@/utils/excelParser";
-import { createProductDump } from "@/services/database";
-import { createStockRules } from "@/services/database/stockRule";
+import { parseExcelToStockRuleArray } from "@/utils/excelParser";
+import { upsertStockRules } from "@/services/database/stockRule";
 
 export async function GET() {
   return NextResponse.json({ name: "Anuj Singh" });
@@ -32,7 +27,7 @@ export async function POST(request: NextRequest) {
     worksheetsNames.push(worksheet.name)
   );
   const stockRulesExcel = await parseExcelToStockRuleArray(excelFile);
-  await createStockRules(stockRulesExcel);
+  await upsertStockRules(stockRulesExcel);
 
   // With the file data in the buffer, you can do whatever you want with it.
   // For this, we'll just write it to the filesystem in a new location

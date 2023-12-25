@@ -1,11 +1,6 @@
 "use client";
 import DumpsTable from "@/components/DumpsTable";
 import styles from "./styles.module.scss";
-import {
-  ProductDumps,
-  deleteAllDumps,
-  getAllProductDumps,
-} from "@/services/database";
 import { Button, notification } from "antd";
 import { useEffect, useState } from "react";
 import { openNotificationWithIcon } from "@/utils/notification";
@@ -16,11 +11,13 @@ import {
   getStockRules,
 } from "@/services/database/stockRule";
 import StockRulesTable from "@/components/StockRulesTable";
+import { ProductDumps, getAllProductDumps } from "@/services/database/stock";
+import { StockRuleProduct } from "@prisma/client";
 
 export default function Home() {
   const [api, contextHolder] = notification.useNotification();
   const [dumpData, setDumpData] = useState<ProductDumps>([]);
-  const [rules, setRules] = useState<StockRuleWithProducts[]>([]);
+  const [rules, setRules] = useState<StockRuleProduct[]>([]);
 
   async function fetchDumpData() {
     const dumpData = await getAllProductDumps();
@@ -85,7 +82,7 @@ export default function Home() {
               message: "Dump removed",
             });
           }}
-          stockRule={rules}
+          stockRuleProducts={rules}
         />
       </div>
     </div>

@@ -1,8 +1,7 @@
-import { writeFile } from "fs/promises";
 import { NextResponse, NextRequest } from "next/server";
 import * as ExcelJS from "exceljs";
 import { parseExcelToStockArray } from "@/utils/excelParser";
-import { createProductDump } from "@/services/database";
+import { createProductDump } from "@/services/database/stock";
 
 export async function GET() {
   return NextResponse.json({ name: "Anuj Singh" });

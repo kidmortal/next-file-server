@@ -1,7 +1,7 @@
 import React from "react";
 import type { TableColumnsType } from "antd";
 import { Button, Table } from "antd";
-import { deleteDump } from "@/services/database";
+import { deleteDump } from "@/services/database/stock";
 
 type DumpProducts = {
   id: string;

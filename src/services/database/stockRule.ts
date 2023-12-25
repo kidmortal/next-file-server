@@ -1,5 +1,5 @@
 "use server";
-import { ExcelStockRuleTable } from "@/utils/excelParser";
+import { ExcelStockRuleProduct } from "@/utils/excelParser";
 import { PrismaClient, StockRuleProduct } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -12,45 +12,27 @@ export type StockRuleWithProducts = {
 };
 
 export async function getStockRules() {
-  const stockRules = await prisma.stockRuleTable.findMany({
-    include: {
-      StockRuleProduct: true,
-    },
-  });
+  const stockRules = await prisma.stockRuleProduct.findMany({});
   console.log(stockRules);
   return stockRules;
 }
 
-export async function createStockRules(ruleTables: ExcelStockRuleTable[]) {
-  for await (const ruleTable of ruleTables) {
-    await prisma.stockRuleTable.upsert({
+export async function upsertStockRules(ruleProducts: ExcelStockRuleProduct[]) {
+  for await (const product of ruleProducts) {
+    await prisma.stockRuleProduct.upsert({
       where: {
-        title: ruleTable.title,
+        sku: product.sku,
       },
-      update: {
-        createdAt: new Date(),
-        StockRuleProduct: {
-          createMany: {
-            data: ruleTable.rules,
-          },
-        },
-      },
-      create: {
-        title: ruleTable.title,
-        StockRuleProduct: {
-          createMany: {
-            data: ruleTable.rules,
-          },
-        },
-      },
+      create: product,
+      update: product,
     });
   }
 }
 
-export async function deleteStockRule(title: string) {
-  const result = await prisma.stockRuleTable.delete({
+export async function deleteStockRule(sku: string) {
+  const result = await prisma.stockRuleProduct.delete({
     where: {
-      title,
+      sku,
     },
   });
 
