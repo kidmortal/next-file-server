@@ -4,6 +4,7 @@ import * as ExcelJS from "exceljs";
 export type ExcelStockProduct = {
   sku: string;
   stock: number;
+  type: string;
 };
 
 export type ExcelStockRuleProduct = {
@@ -45,9 +46,12 @@ export async function parseExcelToStockArray(excelFile: ExcelJS.Workbook) {
   rows?.forEach((row) => {
     const stock = parseInt(row.getCell(3).value?.toString() ?? "");
     const sku = row.getCell(5).value?.toString() ?? "";
+    const type = row.getCell(2).value?.toString() ?? "";
+
     const rowData = {
       sku,
       stock,
+      type,
     };
 
     if (stock && sku) {

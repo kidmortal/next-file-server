@@ -11,18 +11,11 @@ datasource db {
 }
 
 model StockProduct {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  sku         String
-  stock       Int
-  stockDumpId String    @db.ObjectId
-  stockDump   StockDump @relation(fields: [stockDumpId], references: [id], onDelete: Cascade)
-}
-
-model StockDump {
-  id        String         @id @default(auto()) @map("_id") @db.ObjectId
-  author    String
-  createdAt DateTime       @default(now())
-  products  StockProduct[]
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  updatedAt DateTime @default(now())
+  sku       String   @unique
+  stock     Int
+  type      String
 }
 
 model StockRuleProduct {

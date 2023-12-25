@@ -1,12 +1,14 @@
 "use client";
 
-import StockTable from "@/components/StockTable";
 import { UploadFormStock } from "@/components/UploadFormStock";
+import { UploadFormStockRules } from "@/components/UploadFormStockRules";
 import { getAllProductDumps } from "@/services/database/stock";
 import useStore from "@/store/main";
 import { openNotificationWithIcon } from "@/utils/notification";
 import { notification } from "antd";
 import { useEffect } from "react";
+
+import styles from "./styles.module.scss";
 
 export default function Home() {
   const store = useStore();
@@ -27,22 +29,29 @@ export default function Home() {
   return (
     <div>
       {contextHolder}
-      <span>
-        <StockTable
+
+      <div className={styles.container}>
+        <UploadFormStockRules
           onSuccess={() => {
-            fetchDumpData();
-          }}
-          onDelete={() => {
-            fetchDumpData();
             openNotificationWithIcon({
               api,
-              type: "warning",
-              message: "Dump removed",
+              type: "success",
+              message: "Added new dump form",
             });
+            fetchDumpData();
           }}
-          stockProducts={store.productsDump}
         />
-      </span>
+        <UploadFormStock
+          onSuccess={() => {
+            openNotificationWithIcon({
+              api,
+              type: "success",
+              message: "Added new dump form",
+            });
+            fetchDumpData();
+          }}
+        />
+      </div>
     </div>
   );
 }

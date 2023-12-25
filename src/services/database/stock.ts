@@ -15,25 +15,21 @@ export type ProductDumps = {
 }[];
 
 export async function createProductDump(
-  excelProductStock: ExcelStockProduct[],
-  author: string
+  excelProductStock: ExcelStockProduct[]
 ) {
-  const newDump = await prisma.stockDump.create({
-    data: {
-      author: author,
-      products: {
-        createMany: { data: excelProductStock },
+  for await (const product of excelProductStock) {
+    await prisma.stockProduct.upsert({
+      where: {
+        sku: product.sku,
       },
-    },
-  });
-
-  console.log(newDump);
+      create: product,
+      update: product,
+    });
+  }
 }
 
 export async function getAllProductDumps() {
-  const allDumps = await prisma.stockDump.findMany({
-    include: { products: true },
-  });
+  const allDumps = await prisma.stockProduct.findMany({});
   console.log("Fetch dumps");
   return allDumps;
 }
@@ -45,13 +41,13 @@ export async function deleteAllProducts() {
 }
 
 export async function deleteAllDumps() {
-  const allDeletes = await prisma.stockDump.deleteMany({});
+  const allDeletes = await prisma.stockProduct.deleteMany({});
   console.log(allDeletes);
   return allDeletes;
 }
 
 export async function deleteDump(id: string) {
-  const result = await prisma.stockDump.delete({
+  const result = await prisma.stockProduct.delete({
     where: { id },
   });
   console.log(result);

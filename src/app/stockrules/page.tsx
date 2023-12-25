@@ -27,16 +27,6 @@ export default function Home() {
     <div>
       {contextHolder}
       <span>
-        <UploadFormStockRules
-          onSuccess={() => {
-            openNotificationWithIcon({
-              api,
-              type: "success",
-              message: "Added new dump form",
-            });
-            fetchDumpData();
-          }}
-        />
         <StockRulesTable
           onSuccess={() => {
             fetchDumpData();

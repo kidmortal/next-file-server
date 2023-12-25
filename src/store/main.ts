@@ -1,12 +1,12 @@
 import { ProductDumps } from "@/services/database/stock";
-import { StockRuleProduct } from "@prisma/client";
+import { StockProduct, StockRuleProduct } from "@prisma/client";
 import { create } from "zustand";
 
 interface StoreState {
   ruleProducts: StockRuleProduct[];
-  productsDump: ProductDumps;
+  productsDump: StockProduct[];
   setRuleProducts: (ruleProducts: StockRuleProduct[]) => void;
-  setProductsDump: (productsDump: ProductDumps) => void;
+  setProductsDump: (productsDump: StockProduct[]) => void;
 }
 
 const useStore = create<StoreState>((set) => ({

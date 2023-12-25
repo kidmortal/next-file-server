@@ -28,13 +28,12 @@ export default function RootLayout({ children }: { children: any }) {
     <html>
       <head />
       <body>
-        <Layout>
+        <Layout style={{ height: "100vh" }}>
           <Sider trigger={null}>
             <Menu
               theme="dark"
               mode="inline"
               style={{ marginTop: "3rem" }}
-              defaultSelectedKeys={["1"]}
               items={[
                 {
                   key: "1",
@@ -54,7 +53,7 @@ export default function RootLayout({ children }: { children: any }) {
                 {
                   key: "4",
                   icon: <DeploymentUnitOutlined />,
-                  label: <NavLink href="/publish">Publicar anuncios</NavLink>,
+                  label: <NavLink href="/import">Importar planilha</NavLink>,
                 },
               ]}
             />
@@ -72,12 +71,6 @@ export default function RootLayout({ children }: { children: any }) {
             >
               {children}
             </Content>
-            <Footer style={{ textAlign: "center" }}>
-              Made by{" "}
-              <Link href="https://github.com/biantris" target="_blank">
-                Kidmortal
-              </Link>
-            </Footer>
           </Layout>
         </Layout>
       </body>

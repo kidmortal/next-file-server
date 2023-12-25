@@ -40,9 +40,9 @@ export function UploadFormStock(props: Props) {
           <InboxOutlined />
         </p>
         <p className="ant-upload-text">
-          Clique ou arraste para adicionar arquivo
+          Clique para adicionar planilha de estoque
         </p>
-        <p className="ant-upload-hint">Adicionar planilha de estoque</p>
+        <p className="ant-upload-hint">Estoque</p>
       </Dragger>
     </div>
   );
