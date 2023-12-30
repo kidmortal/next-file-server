@@ -1,16 +1,12 @@
 "use client";
 
 import StockTable from "@/components/StockTable";
-import { UploadFormStock } from "@/components/UploadFormStock";
 import { getAllProductDumps } from "@/services/database/stock";
 import useStore from "@/store/main";
-import { openNotificationWithIcon } from "@/utils/notification";
-import { notification } from "antd";
 import { useEffect } from "react";
 
-export default function Home() {
+export default function StockPage() {
   const store = useStore();
-  const [api, contextHolder] = notification.useNotification();
 
   async function fetchDumpData() {
     const dumpData = await getAllProductDumps();
@@ -26,7 +22,6 @@ export default function Home() {
 
   return (
     <div>
-      {contextHolder}
       <span>
         <StockTable
           onSuccess={() => {
@@ -34,11 +29,6 @@ export default function Home() {
           }}
           onDelete={() => {
             fetchDumpData();
-            openNotificationWithIcon({
-              api,
-              type: "warning",
-              message: "Dump removed",
-            });
           }}
           stockProducts={store.productsDump}
         />

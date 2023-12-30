@@ -1,16 +1,12 @@
 "use client";
 
-import StockRulesTable from "@/components/StockRulesTable";
-import { UploadFormStockRules } from "@/components/UploadFormStockRules";
 import { getStockRules } from "@/services/database/stockRule";
 import useStore from "@/store/main";
-import { openNotificationWithIcon } from "@/utils/notification";
-import { notification } from "antd";
+
 import { useEffect } from "react";
 
 export default function Home() {
   const store = useStore();
-  const [api, contextHolder] = notification.useNotification();
 
   async function fetchDumpData() {
     const stockRules = await getStockRules();
@@ -25,23 +21,7 @@ export default function Home() {
 
   return (
     <div>
-      {contextHolder}
-      <span>
-        <StockRulesTable
-          onSuccess={() => {
-            fetchDumpData();
-          }}
-          onDelete={() => {
-            fetchDumpData();
-            openNotificationWithIcon({
-              api,
-              type: "warning",
-              message: "Dump removed",
-            });
-          }}
-          stockRuleProducts={store.ruleProducts}
-        />
-      </span>
+      <span></span>
     </div>
   );
 }

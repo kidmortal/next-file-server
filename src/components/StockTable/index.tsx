@@ -1,9 +1,21 @@
 import React from "react";
-import type { TableColumnsType } from "antd";
-import { Button, Table } from "antd";
-import { deleteDump } from "@/services/database/stock";
+
 import { StockProduct } from "@prisma/client";
+
+import {
+  IconButton,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import dayjs from "dayjs";
+import { DeleteIcon } from "@chakra-ui/icons";
 
 type Props = {
   stockProducts?: StockProduct[];
@@ -16,32 +28,37 @@ export default function StockTable(props: Props) {
 
   if (!products) return <></>;
 
-  const columns: TableColumnsType<StockProduct> = [
-    {
-      title: "Atualizado em",
-      dataIndex: "updatedAt",
-      key: "updatedAt",
-      render: (v: Date) => dayjs(v).format("DD-MM-YY HH:mm"),
-    },
-    { title: "Sku", dataIndex: "sku", key: "sku" },
-    { title: "Estoque", dataIndex: "stock", key: "stock" },
-    { title: "Tipo", dataIndex: "type", key: "type" },
-    {
-      title: "Action",
-      key: "operation",
-      render: (text, record) => (
-        <Button
-          onClick={() => deleteDump(record.id).then(() => props.onDelete())}
-        >
-          Remover
-        </Button>
-      ),
-    },
-  ];
-
   return (
     <div>
-      <Table columns={columns} rowKey={"id"} dataSource={products} />
+      <TableContainer maxH={"80vh"} overflowY="scroll">
+        <Table>
+          <Thead>
+            <Tr>
+              <Th>SKU</Th>
+              <Th>Estoque</Th>
+              <Th>Categoria</Th>
+              <Th>Atualizado em</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {products.map((product) => (
+              <Tr key={product.sku}>
+                <Td>{product.sku}</Td>
+                <Td>{product.stock}</Td>
+                <Td>{product.type}</Td>
+                <Td>{dayjs(product.updatedAt).format("DD-MM-YY HH:mm")}</Td>
+                <Td>
+                  <IconButton
+                    colorScheme="red"
+                    aria-label="delete"
+                    icon={<DeleteIcon />}
+                  />
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }
