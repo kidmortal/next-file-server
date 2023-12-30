@@ -14,13 +14,17 @@ export type ProductDumps = {
   }[];
 }[];
 
-export async function createProductDump(
-  excelProductStock: ExcelStockProduct[]
-) {
-  for await (const product of excelProductStock) {
+export async function createProductDump(excelProductStock: ExcelStockProduct) {
+  for await (const SKU of Object.keys(excelProductStock)) {
+    const productObject = excelProductStock[SKU];
+    const product = {
+      sku: SKU,
+      stock: productObject.stock,
+      type: productObject.type,
+    };
     await prisma.stockProduct.upsert({
       where: {
-        sku: product.sku,
+        sku: SKU,
       },
       create: product,
       update: product,

@@ -2,9 +2,10 @@
 import * as ExcelJS from "exceljs";
 
 export type ExcelStockProduct = {
-  sku: string;
-  stock: number;
-  type: string;
+  [sku: string]: {
+    stock: number;
+    type: string;
+  };
 };
 
 export type ExcelStockRuleProduct = {
@@ -40,23 +41,19 @@ export async function parseExcelToStockRuleArray(excelFile: ExcelJS.Workbook) {
 }
 
 export async function parseExcelToStockArray(excelFile: ExcelJS.Workbook) {
-  const stockDump: ExcelStockProduct[] = [];
+  const stockDump: ExcelStockProduct = {};
   const sheet = excelFile.getWorksheet(1);
   const rows = sheet?.getRows(2, sheet.rowCount);
   rows?.forEach((row) => {
     const stock = parseInt(row.getCell(3).value?.toString() ?? "");
     const sku = row.getCell(5).value?.toString() ?? "";
     const type = row.getCell(2).value?.toString() ?? "";
-
-    const rowData = {
-      sku,
-      stock,
-      type,
-    };
-
     if (stock && sku) {
-      console.log(rowData);
-      stockDump.push(rowData);
+      if (stockDump[sku]) {
+        stockDump[sku].stock += stock;
+      } else {
+        stockDump[sku] = { stock, type };
+      }
     }
   });
   return stockDump;

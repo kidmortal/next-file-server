@@ -1,30 +1,65 @@
 "use client";
 
-import { getAllProductDumps } from "@/services/database/stock";
+import { useToast } from "@chakra-ui/react";
 import useStore from "@/store/main";
 
-import { useEffect } from "react";
-
 import styles from "./styles.module.scss";
+import { UploadForm } from "@/components/UploadFile";
 
 export default function Home() {
+  const toast = useToast();
   const store = useStore();
-
-  async function fetchDumpData() {
-    const dumpData = await getAllProductDumps();
-    store.setProductsDump(dumpData);
-  }
-
-  useEffect(() => {
-    if (store.productsDump.length <= 0) {
-      console.log("fetch");
-      fetchDumpData();
-    }
-  }, []);
 
   return (
     <div>
-      <div className={styles.container}></div>
+      <div className={styles.container}>
+        <UploadForm
+          uploadPath="/api/database/stock"
+          label="Estoque"
+          onError={() => {
+            toast({
+              position: "top-right",
+              title: "Erro",
+              description: "Ocorreu um erro ao importar a planilha",
+              status: "error",
+              duration: 2000,
+            });
+          }}
+          onSuccess={() => {
+            store.fetchProducts();
+            toast({
+              position: "top-right",
+              title: "Sucesso",
+              description: "Planilha importada",
+              status: "success",
+              duration: 2000,
+            });
+          }}
+        />
+        <UploadForm
+          uploadPath="/api/database/rules"
+          label="Regras"
+          onError={() => {
+            toast({
+              position: "top-right",
+              title: "Erro",
+              description: "Ocorreu um erro ao importar a planilha",
+              status: "error",
+              duration: 2000,
+            });
+          }}
+          onSuccess={() => {
+            store.fetchStockRules();
+            toast({
+              position: "top-right",
+              title: "Sucesso",
+              description: "Planilha importada",
+              status: "success",
+              duration: 2000,
+            });
+          }}
+        />
+      </div>
     </div>
   );
 }
