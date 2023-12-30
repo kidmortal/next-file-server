@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     worksheetsNames.push(worksheet.name)
   );
   const stockproducts = await parseExcelToStockArray(excelFile);
-  const createNewDump = await createProductDump(stockproducts, "Allan");
+  const createNewDump = await createProductDump(stockproducts);
 
   // With the file data in the buffer, you can do whatever you want with it.
   // For this, we'll just write it to the filesystem in a new location
