@@ -4,8 +4,22 @@ import { SideBarMenu } from "@/components/SideBarMenu";
 import { ChakraProvider, Stack } from "@chakra-ui/react";
 
 import styles from "./styles.module.scss";
+import { HeaderComponent } from "@/components/Header";
+import { useEffect } from "react";
+import useStore from "@/store/main";
 
 export default function RootLayout({ children }: { children: any }) {
+  const store = useStore();
+
+  useEffect(() => {
+    if (store.productsDump.length <= 0) {
+      store.fetchProducts();
+    }
+    if (store.ruleProducts.length <= 0) {
+      store.fetchStockRules();
+    }
+  }, []);
+
   return (
     <html>
       <head />
@@ -20,7 +34,7 @@ export default function RootLayout({ children }: { children: any }) {
               borderRadius="8px"
               padding="1rem"
             >
-              <div>header</div>
+              <HeaderComponent />
               <div>{children}</div>
             </Stack>
           </Stack>

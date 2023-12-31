@@ -1,21 +1,29 @@
 "use client";
 
+import StockRulesTable from "@/components/StockRulesTable";
+import { When } from "@/components/When";
 import useStore from "@/store/main";
+import { Skeleton, Stack } from "@chakra-ui/react";
 
-import { useEffect } from "react";
-
-export default function Home() {
+export default function StockRulesPage() {
   const store = useStore();
-
-  useEffect(() => {
-    if (store.ruleProducts.length <= 0) {
-      store.fetchStockRules();
-    }
-  }, []);
 
   return (
     <div>
-      <span></span>
+      <When value={store.isFetching.rules}>
+        <Stack>
+          <Skeleton height="20px" />
+          <Skeleton height="20px" />
+          <Skeleton height="20px" />
+        </Stack>
+      </When>
+      <When value={!store.isFetching.rules}>
+        <StockRulesTable
+          onSuccess={() => {}}
+          onDelete={() => {}}
+          stockRuleProducts={store.ruleProducts}
+        />
+      </When>
     </div>
   );
 }

@@ -15,6 +15,7 @@ specifiers:
   eslint-config-next: 14.0.4
   exceljs: ^4.4.0
   framer-motion: ^10.16.16
+  immer: ^10.0.3
   next: 14.0.4
   prisma: ^5.7.1
   react: ^18
@@ -33,12 +34,13 @@ dependencies:
   dayjs: 1.11.10
   exceljs: 4.4.0
   framer-motion: 10.16.16_biqbaboplfbrettd7655fr4n2y
+  immer: 10.0.3
   next: 14.0.4_2sxiyfzeap2fgw7t7svnurc6pi
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.12.0_react@18.2.0
   sass: 1.69.5
-  zustand: 4.4.7_qinpt5tsrh57s4kh6guy25fqdq
+  zustand: 4.4.7_jfowsagsozry3hkxhgszlfov64
 
 devDependencies:
   '@prisma/client': 5.7.1_prisma@5.7.1
@@ -3044,6 +3046,10 @@ packages:
     resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
     dev: false
 
+  /immer/10.0.3:
+    resolution: {integrity: sha512-pwupu3eWfouuaowscykeckFmVTpqbzW+rXFCX8rQLkZzM9ftBmU/++Ra+o+L27mz03zJTlyV4UUr+fdKNffo4A==}
+    dev: false
+
   /immutable/4.3.4:
     resolution: {integrity: sha512-fsXeu4J4i6WNWSikpI88v/PcVflZz+6kMhUfIwc5SY+poQRPnaf5V7qds6SUyUN3cVxEzuCab7QIoLOQ+DQ1wA==}
     dev: false
@@ -4508,7 +4514,7 @@ packages:
       readable-stream: 3.6.2
     dev: false
 
-  /zustand/4.4.7_qinpt5tsrh57s4kh6guy25fqdq:
+  /zustand/4.4.7_jfowsagsozry3hkxhgszlfov64:
     resolution: {integrity: sha512-QFJWJMdlETcI69paJwhSMJz7PPWjVP8Sjhclxmxmxv/RYI7ZOvR5BHX+ktH0we9gTWQMxcne8q1OY8xxz604gw==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -4524,6 +4530,7 @@ packages:
         optional: true
     dependencies:
       '@types/react': 18.2.45
+      immer: 10.0.3
       react: 18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
