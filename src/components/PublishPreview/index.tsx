@@ -1,4 +1,7 @@
-import { calculatePublishProducts } from "@/utils/calculatePublish";
+import {
+  PublishProduct,
+  calculatePublishProducts,
+} from "@/utils/calculatePublish";
 import {
   Box,
   Table,
@@ -9,16 +12,14 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { StockProduct, StockRuleProduct } from "@prisma/client";
 import React from "react";
 
 type Props = {
-  stock: StockProduct[];
-  rules: StockRuleProduct[];
+  publishProducts: PublishProduct[];
 };
 
 export default function PublishPreview(props: Props) {
-  const publishList = calculatePublishProducts(props.stock, props.rules);
+  const publishList = props.publishProducts;
 
   if (publishList.length < 0) return <></>;
 

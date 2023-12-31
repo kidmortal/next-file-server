@@ -8,10 +8,19 @@ import { CompactStockTable } from "@/components/StockTable";
 import useStore from "@/store/main";
 import { CompactStockRulesTable } from "@/components/StockRulesTable";
 import { When } from "@/components/When";
+import { calculatePublishProducts } from "@/utils/calculatePublish";
+import { PublishedProducts } from "@/components/PublishedProducts";
 
 export default function Home() {
   const store = useStore();
-  const isFetching = store.isFetching.products || store.isFetching.rules;
+  const isFetching =
+    store.isFetching.products ||
+    store.isFetching.rules ||
+    store.isFetching.publish;
+  const publishList = calculatePublishProducts(
+    store.productsDump,
+    store.ruleProducts
+  );
 
   return (
     <div className={styles.container}>
@@ -25,17 +34,16 @@ export default function Home() {
       <When value={!isFetching}>
         <Stack direction={"row"} gap="1rem">
           <Stack direction={"column"} gap="1rem">
-            <PublishPreview
-              stock={store.productsDump}
-              rules={store.ruleProducts}
-            />
+            <PublishPreview publishProducts={publishList} />
             <Button
               colorScheme="blue"
               width="100%"
               rightIcon={<ChevronRightIcon />}
+              onClick={() => store.publishProducts(publishList)}
             >
               Publicar produtos
             </Button>
+            <PublishedProducts publishedProducts={store.publishedProducts} />
           </Stack>
 
           <Stack direction={"column"} gap="1rem">

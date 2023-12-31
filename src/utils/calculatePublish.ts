@@ -1,7 +1,7 @@
 "use client";
 import { StockProduct, StockRuleProduct } from "@prisma/client";
 
-type PublishProduct = {
+export type PublishProduct = {
   sku: string;
   amount: number;
   publishCode: string;

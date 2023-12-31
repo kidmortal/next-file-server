@@ -18,6 +18,9 @@ export default function RootLayout({ children }: { children: any }) {
     if (store.ruleProducts.length <= 0) {
       store.fetchStockRules();
     }
+    if (store.publishedProducts.length <= 0) {
+      store.fetchPublishedProducts();
+    }
   }, []);
 
   return (
