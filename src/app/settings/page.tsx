@@ -5,10 +5,18 @@ import useStore from "@/store/main";
 
 import styles from "./styles.module.scss";
 import { UploadForm } from "@/components/UploadFile";
+import IntegrationSettings from "@/components/IntegrationSettings";
+import { useEffect } from "react";
 
 export default function Home() {
   const toast = useToast();
   const store = useStore();
+
+  useEffect(() => {
+    if (!store.integration) {
+      store.fetchIntegration();
+    }
+  }, []);
 
   return (
     <div>
@@ -63,6 +71,7 @@ export default function Home() {
             }}
           />
         </Box>
+        <IntegrationSettings settings={store.integration} />
       </div>
     </div>
   );

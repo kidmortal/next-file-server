@@ -36,3 +36,15 @@ model StockRuleProduct {
   price       Float
   category    String
 }
+
+model MercadoLivreIntegration {
+  id                    String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt             DateTime @default(now())
+  name                  String   @unique
+  clientId              Int
+  secretKey             String
+  uri                   String
+  appToken              String
+  refreshToken          String
+  refreshTokenUpdatedAt DateTime
+}

@@ -43,7 +43,7 @@ export function SideBarMenu() {
           leftIcon={<SettingsIcon />}
           colorScheme="teal"
           variant="solid"
-          onClick={() => router.push("/import")}
+          onClick={() => router.push("/settings")}
         >
           Configurações
         </Button>

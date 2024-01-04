@@ -1,11 +1,14 @@
+import { getMercadoLivreIntegration } from "@/services/database/integration";
 import {
   createProductPublish,
   getLastTenPublishedProduct,
 } from "@/services/database/publish";
 import { getAllProductDumps } from "@/services/database/stock";
 import { getStockRules } from "@/services/database/stockRule";
+import { MercadoLivreService } from "@/services/mercado";
 import { PublishProduct } from "@/utils/calculatePublish";
 import {
+  MercadoLivreIntegration,
   PublishedProduct,
   StockProduct,
   StockRuleProduct,
@@ -17,6 +20,7 @@ interface StoreState {
   ruleProducts: StockRuleProduct[];
   productsDump: StockProduct[];
   publishedProducts: PublishedProduct[];
+  integration: MercadoLivreIntegration | null;
   isFetching: {
     products: boolean;
     rules: boolean;
@@ -26,12 +30,15 @@ interface StoreState {
   fetchProducts: () => Promise<void>;
   fetchStockRules: () => Promise<void>;
   fetchPublishedProducts: () => Promise<void>;
+  fetchIntegration: () => Promise<void>;
+  generateNewApiToken: () => Promise<void>;
 }
 
 const useStore = create(
   immer<StoreState>((set, get) => ({
     ruleProducts: [],
     productsDump: [],
+    integration: null,
     publishedProducts: [],
     isFetching: {
       publish: false,
@@ -78,6 +85,19 @@ const useStore = create(
         s.ruleProducts = data;
         s.isFetching.rules = false;
       });
+    },
+    fetchIntegration: async () => {
+      const data = await getMercadoLivreIntegration();
+      set((s: StoreState) => {
+        s.integration = data;
+      });
+    },
+    generateNewApiToken: async () => {
+      const integration = get().integration;
+      if (integration) {
+        const data = await MercadoLivreService.getNewApiTokens(integration);
+        console.log(data);
+      }
     },
   }))
 );

@@ -13,8 +13,8 @@ export const HeaderComponent = () => {
         return "Estoque de produtos";
       case "/stockrules":
         return "Regra de estoque";
-      case "/import":
-        return "Importação de configuraçoes";
+      case "/settings":
+        return "Configurações";
 
       default:
         return "";
