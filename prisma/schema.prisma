@@ -48,3 +48,14 @@ model MercadoLivreIntegration {
   refreshToken          String
   refreshTokenUpdatedAt DateTime
 }
+
+model User {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  email       String  @unique
+  publish     Boolean
+  stock       Boolean
+  stockRule   Boolean
+  settings    Boolean
+  importStock Boolean
+  importRules Boolean
+}

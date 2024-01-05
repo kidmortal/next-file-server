@@ -2,22 +2,18 @@ import {
   getMercadoLivreIntegration,
   renewAppTokenMercadoLiveIntegration,
 } from "@/services/database/integration";
-import {
-  createProductPublish,
-  getLastTenPublishedProduct,
-} from "@/services/database/publish";
+import { getLastTenPublishedProduct } from "@/services/database/publish";
 import { getAllProductDumps } from "@/services/database/stock";
 import { getStockRules } from "@/services/database/stockRule";
-import {
-  getMercadoLivreNewApiTokens,
-  publishMercadoLivreProduct,
-} from "@/services/mercado";
+import { getDatabaseUser } from "@/services/database/user";
+import { publishMercadoLivreProduct } from "@/services/mercado";
 import { PublishProduct } from "@/utils/calculatePublish";
 import {
   MercadoLivreIntegration,
   PublishedProduct,
   StockProduct,
   StockRuleProduct,
+  User,
 } from "@prisma/client";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
@@ -27,13 +23,16 @@ interface StoreState {
   productsDump: StockProduct[];
   publishedProducts: PublishedProduct[];
   integration: MercadoLivreIntegration | null;
+  user?: User;
   isFetching: {
+    user: boolean;
     products: boolean;
     rules: boolean;
     publish: boolean;
     integration: boolean;
   };
   publishProducts: (products: PublishProduct[]) => Promise<void>;
+  fetchUser: (email: string) => Promise<void>;
   fetchProducts: () => Promise<void>;
   fetchStockRules: () => Promise<void>;
   fetchPublishedProducts: () => Promise<void>;
@@ -46,8 +45,10 @@ const useStore = create(
     ruleProducts: [],
     productsDump: [],
     integration: null,
+    user: undefined,
     publishedProducts: [],
     isFetching: {
+      user: false,
       publish: false,
       products: true,
       rules: true,
@@ -117,6 +118,16 @@ const useStore = create(
         await renewAppTokenMercadoLiveIntegration();
         get().fetchIntegration();
       }
+    },
+    fetchUser: async (email: string) => {
+      set((s: StoreState) => {
+        s.isFetching.user = true;
+      });
+      const fetchedUser = await getDatabaseUser(email);
+      set((s: StoreState) => {
+        s.user = fetchedUser;
+        s.isFetching.user = false;
+      });
     },
   }))
 );
