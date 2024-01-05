@@ -8,6 +8,7 @@ import { UploadForm } from "@/components/UploadFile";
 import IntegrationSettings from "@/components/IntegrationSettings";
 import { useEffect } from "react";
 import { When } from "@/components/When";
+import UserList from "@/components/UserList";
 
 export default function Home() {
   const toast = useToast();
@@ -29,6 +30,7 @@ export default function Home() {
       <When value={!store.isFetching.integration}>
         <IntegrationSettings settings={store.integration} />
       </When>
+      <UserList users={store.users} />
 
       <Stack direction="row" className={styles.container}>
         <Box borderRadius="8px" backgroundColor="white" padding="0.5rem">

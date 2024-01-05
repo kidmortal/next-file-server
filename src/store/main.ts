@@ -5,7 +5,7 @@ import {
 import { getLastTenPublishedProduct } from "@/services/database/publish";
 import { getAllProductDumps } from "@/services/database/stock";
 import { getStockRules } from "@/services/database/stockRule";
-import { getDatabaseUser } from "@/services/database/user";
+import { getAllDatabaseUsers, getDatabaseUser } from "@/services/database/user";
 import { publishMercadoLivreProduct } from "@/services/mercado";
 import { PublishProduct } from "@/utils/calculatePublish";
 import {
@@ -24,6 +24,7 @@ interface StoreState {
   publishedProducts: PublishedProduct[];
   integration: MercadoLivreIntegration | null;
   user?: User;
+  users: User[];
   isFetching: {
     user: boolean;
     products: boolean;
@@ -33,6 +34,7 @@ interface StoreState {
   };
   publishProducts: (products: PublishProduct[]) => Promise<void>;
   fetchUser: (email: string) => Promise<void>;
+  fetchAllUsers: () => Promise<void>;
   fetchProducts: () => Promise<void>;
   fetchStockRules: () => Promise<void>;
   fetchPublishedProducts: () => Promise<void>;
@@ -46,6 +48,7 @@ const useStore = create(
     productsDump: [],
     integration: null,
     user: undefined,
+    users: [],
     publishedProducts: [],
     isFetching: {
       user: false,
@@ -127,6 +130,12 @@ const useStore = create(
       set((s: StoreState) => {
         s.user = fetchedUser;
         s.isFetching.user = false;
+      });
+    },
+    fetchAllUsers: async () => {
+      const users = await getAllDatabaseUsers();
+      set((s: StoreState) => {
+        s.users = users;
       });
     },
   }))

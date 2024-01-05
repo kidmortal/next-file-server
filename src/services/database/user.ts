@@ -1,4 +1,5 @@
 "use server";
+import { User } from "@prisma/client";
 import { prisma } from "./db";
 
 export type ProductDumps = {
@@ -29,6 +30,44 @@ export async function createNewUser(email: string) {
   return result;
 }
 
+export async function updateDatabaseUserPermission(
+  email: string,
+  permission: string,
+  enabled: boolean
+) {
+  const result = await prisma.user.update({
+    where: {
+      email: email,
+    },
+    data: {
+      [permission]: enabled,
+    },
+  });
+
+  return result;
+}
+
+export async function updateDatabaseUser(user: User) {
+  const result = await prisma.user.update({
+    where: {
+      email: user.email,
+    },
+    data: user,
+  });
+
+  return result;
+}
+
+export async function deleteDatabaseUser(email: string) {
+  const result = await prisma.user.delete({
+    where: {
+      email: email,
+    },
+  });
+
+  return result;
+}
+
 export async function getDatabaseUser(email: string) {
   const user = await prisma.user.findFirst({
     where: {
@@ -41,4 +80,9 @@ export async function getDatabaseUser(email: string) {
   }
 
   return user;
+}
+
+export async function getAllDatabaseUsers() {
+  const users = await prisma.user.findMany({});
+  return users;
 }
