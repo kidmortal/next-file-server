@@ -34,7 +34,6 @@ export async function createProductDump(excelProductStock: ExcelStockProduct) {
 
 export async function getAllProductDumps() {
   const allDumps = await prisma.stockProduct.findMany({});
-  console.log("Fetch dumps");
   return allDumps;
 }
 

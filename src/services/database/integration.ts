@@ -19,22 +19,24 @@ export async function createMercadoLivreIntegration(data: {
   return result;
 }
 
-export async function updateMercadoLivreIntegration(data: {
-  id: string;
-  name: string;
-  clientId: number;
-  secretKey: string;
-  uri: string;
-  refreshToken: string;
-}) {
+export async function updateMercadoLivreIntegration(
+  id: string,
+  data: {
+    name: string;
+    clientId: number;
+    secretKey: string;
+    uri: string;
+    appToken?: string;
+    refreshToken: string;
+  }
+) {
   const result = await prisma.mercadoLivreIntegration.update({
     data: {
       ...data,
-      appToken: "",
       refreshTokenUpdatedAt: new Date(),
     },
     where: {
-      id: data.id,
+      id: id,
     },
   });
   return result;
@@ -54,6 +56,5 @@ export async function getMercadoLivreIntegration() {
       return result;
     }
   }
-  console.log("Fetch dumps");
   return integration;
 }

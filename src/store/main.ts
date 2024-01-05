@@ -1,11 +1,14 @@
-import { getMercadoLivreIntegration } from "@/services/database/integration";
+import {
+  getMercadoLivreIntegration,
+  updateMercadoLivreIntegration,
+} from "@/services/database/integration";
 import {
   createProductPublish,
   getLastTenPublishedProduct,
 } from "@/services/database/publish";
 import { getAllProductDumps } from "@/services/database/stock";
 import { getStockRules } from "@/services/database/stockRule";
-import { MercadoLivreService } from "@/services/mercado";
+import { getMercadoLivreNewApiTokens } from "@/services/mercado";
 import { PublishProduct } from "@/utils/calculatePublish";
 import {
   MercadoLivreIntegration,
@@ -94,9 +97,20 @@ const useStore = create(
     },
     generateNewApiToken: async () => {
       const integration = get().integration;
+      console.log("teste123");
       if (integration) {
-        const data = await MercadoLivreService.getNewApiTokens(integration);
+        const data = await getMercadoLivreNewApiTokens(integration);
+        console.log("dadossssssss");
         console.log(data);
+        await updateMercadoLivreIntegration(integration.id, {
+          clientId: integration.clientId,
+          name: integration.name,
+          refreshToken: data.refresh_token,
+          secretKey: integration.secretKey,
+          uri: integration.uri,
+          appToken: data.access_token,
+        });
+        get().fetchIntegration();
       }
     },
   }))

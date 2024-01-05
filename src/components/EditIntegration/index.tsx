@@ -18,14 +18,16 @@ export default function EditIntegration(props: {
 
   async function editIntegration() {
     if (props.integration) {
-      const response = await updateMercadoLivreIntegration({
-        id: props.integration.id,
-        name,
-        clientId,
-        refreshToken,
-        secretKey,
-        uri,
-      });
+      const response = await updateMercadoLivreIntegration(
+        props.integration.id,
+        {
+          name,
+          clientId,
+          refreshToken,
+          secretKey,
+          uri,
+        }
+      );
       console.log(response);
     }
   }

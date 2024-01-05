@@ -13,7 +13,6 @@ import { MercadoLivreIntegration } from "@prisma/client";
 import dayjs from "dayjs";
 import { useState } from "react";
 import EditIntegration from "../EditIntegration";
-import { MercadoLivreService } from "@/services/mercado";
 import useStore from "@/store/main";
 
 export default function IntegrationSettings(props: {
@@ -43,13 +42,7 @@ export default function IntegrationSettings(props: {
         <Button
           colorScheme="blue"
           onClick={async () => {
-            await MercadoLivreService.getNewApiTokens({
-              clientId: store.integration?.clientId,
-              refreshToken: store.integration?.refreshToken,
-              secretKey: store.integration?.secretKey,
-              uri: store.integration?.uri,
-            });
-            store.fetchIntegration();
+            store.generateNewApiToken();
           }}
         >
           Atualizar chaves
