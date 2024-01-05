@@ -1,4 +1,4 @@
-Simple nextjs project to test api routes, so i can have a free alternative for my backend server
+Simple nextjs project to test api routes, so i can have a free alternative for my backend serversss
 
 First, run the development server:
 
