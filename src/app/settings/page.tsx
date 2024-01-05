@@ -1,12 +1,13 @@
 "use client";
 
-import { Box, useToast } from "@chakra-ui/react";
+import { Box, Skeleton, Stack, useToast } from "@chakra-ui/react";
 import useStore from "@/store/main";
 
 import styles from "./styles.module.scss";
 import { UploadForm } from "@/components/UploadFile";
 import IntegrationSettings from "@/components/IntegrationSettings";
 import { useEffect } from "react";
+import { When } from "@/components/When";
 
 export default function Home() {
   const toast = useToast();
@@ -19,8 +20,17 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <div className={styles.container}>
+    <Stack direction="column" gap="1rem">
+      <When value={store.isFetching.integration}>
+        <Stack>
+          <Skeleton height="230px" borderRadius="8px" />
+        </Stack>
+      </When>
+      <When value={!store.isFetching.integration}>
+        <IntegrationSettings settings={store.integration} />
+      </When>
+
+      <Stack direction="row" className={styles.container}>
         <Box borderRadius="8px" backgroundColor="white" padding="0.5rem">
           <UploadForm
             uploadPath="/api/database/stock"
@@ -71,8 +81,7 @@ export default function Home() {
             }}
           />
         </Box>
-        <IntegrationSettings settings={store.integration} />
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   );
 }

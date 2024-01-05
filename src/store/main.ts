@@ -31,6 +31,7 @@ interface StoreState {
     products: boolean;
     rules: boolean;
     publish: boolean;
+    integration: boolean;
   };
   publishProducts: (products: PublishProduct[]) => Promise<void>;
   fetchProducts: () => Promise<void>;
@@ -50,6 +51,7 @@ const useStore = create(
       publish: false,
       products: true,
       rules: true,
+      integration: true,
     },
     fetchProducts: async () => {
       set((s: StoreState) => {
@@ -97,14 +99,21 @@ const useStore = create(
       });
     },
     fetchIntegration: async () => {
+      set((s: StoreState) => {
+        s.isFetching.integration = true;
+      });
       const data = await getMercadoLivreIntegration();
       set((s: StoreState) => {
         s.integration = data;
+        s.isFetching.integration = false;
       });
     },
     generateNewApiToken: async () => {
       const integration = get().integration;
       if (integration) {
+        set((s: StoreState) => {
+          s.isFetching.integration = true;
+        });
         await renewAppTokenMercadoLiveIntegration();
         get().fetchIntegration();
       }

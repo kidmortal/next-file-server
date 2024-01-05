@@ -54,7 +54,13 @@ export default function IntegrationSettings(props: {
           <ModalHeader>Edit Integration</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <EditIntegration integration={props.settings} />
+            <EditIntegration
+              integration={props.settings}
+              onSuccess={() => {
+                setModalOpen(false);
+                store.fetchIntegration();
+              }}
+            />
           </ModalBody>
         </ModalContent>
       </Modal>

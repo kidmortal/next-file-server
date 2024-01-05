@@ -5,6 +5,7 @@ import { useState } from "react";
 
 export default function EditIntegration(props: {
   integration: MercadoLivreIntegration | null;
+  onSuccess: () => void;
 }) {
   const [name, setName] = useState(props.integration?.name ?? "");
   const [clientId, setClientId] = useState(props.integration?.clientId ?? 0);
@@ -19,18 +20,15 @@ export default function EditIntegration(props: {
 
   async function editIntegration() {
     if (props.integration) {
-      const response = await updateMercadoLivreIntegration(
-        props.integration.id,
-        {
-          name,
-          clientId,
-          refreshToken,
-          secretKey,
-          uri,
-          appToken,
-        }
-      );
-      console.log(response);
+      await updateMercadoLivreIntegration(props.integration.id, {
+        name,
+        clientId,
+        refreshToken,
+        secretKey,
+        uri,
+        appToken,
+      });
+      props.onSuccess();
     }
   }
 
