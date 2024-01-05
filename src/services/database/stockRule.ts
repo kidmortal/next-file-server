@@ -13,7 +13,6 @@ export type StockRuleWithProducts = {
 
 export async function getStockRules() {
   const stockRules = await prisma.stockRuleProduct.findMany({});
-  console.log(stockRules);
   return stockRules;
 }
 

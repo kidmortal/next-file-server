@@ -8,7 +8,10 @@ import {
 } from "@/services/database/publish";
 import { getAllProductDumps } from "@/services/database/stock";
 import { getStockRules } from "@/services/database/stockRule";
-import { getMercadoLivreNewApiTokens } from "@/services/mercado";
+import {
+  getMercadoLivreNewApiTokens,
+  publishMercadoLivreProduct,
+} from "@/services/mercado";
 import { PublishProduct } from "@/utils/calculatePublish";
 import {
   MercadoLivreIntegration,
@@ -72,12 +75,16 @@ const useStore = create(
       set((s: StoreState) => {
         s.isFetching.publish = true;
       });
-      await createProductPublish(products);
-      set((s: StoreState) => {
-        s.isFetching.publish = false;
-      });
-      get().fetchProducts();
-      get().fetchStockRules();
+      // await createProductPublish(products);
+      const token = get().integration?.appToken;
+      if (token) {
+        await publishMercadoLivreProduct(token);
+        set((s: StoreState) => {
+          s.isFetching.publish = false;
+        });
+        get().fetchProducts();
+        get().fetchStockRules();
+      }
     },
     fetchStockRules: async () => {
       set((s: StoreState) => {
@@ -97,10 +104,8 @@ const useStore = create(
     },
     generateNewApiToken: async () => {
       const integration = get().integration;
-      console.log("teste123");
       if (integration) {
         const data = await getMercadoLivreNewApiTokens(integration);
-        console.log("dadossssssss");
         console.log(data);
         await updateMercadoLivreIntegration(integration.id, {
           clientId: integration.clientId,

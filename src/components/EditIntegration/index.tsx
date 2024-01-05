@@ -15,6 +15,7 @@ export default function EditIntegration(props: {
   const [refreshToken, setRefreshToken] = useState(
     props.integration?.refreshToken ?? ""
   );
+  const [appToken, setAppToken] = useState(props.integration?.appToken ?? "");
 
   async function editIntegration() {
     if (props.integration) {
@@ -26,6 +27,7 @@ export default function EditIntegration(props: {
           refreshToken,
           secretKey,
           uri,
+          appToken,
         }
       );
       console.log(response);
@@ -70,6 +72,12 @@ export default function EditIntegration(props: {
           placeholder="refresh tken"
           onChange={(event) => setRefreshToken(event.currentTarget.value)}
           value={refreshToken}
+        />
+        <FormLabel>App token</FormLabel>
+        <Input
+          placeholder="refresh tken"
+          onChange={(event) => setAppToken(event.currentTarget.value)}
+          value={appToken}
         />
         <Button mt={4} colorScheme="green" onClick={() => editIntegration()}>
           Edit integration

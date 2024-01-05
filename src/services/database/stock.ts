@@ -39,13 +39,11 @@ export async function getAllProductDumps() {
 
 export async function deleteAllProducts() {
   const allDeletes = await prisma.stockProduct.deleteMany({});
-  console.log(allDeletes);
   return allDeletes;
 }
 
 export async function deleteAllDumps() {
   const allDeletes = await prisma.stockProduct.deleteMany({});
-  console.log(allDeletes);
   return allDeletes;
 }
 
@@ -53,6 +51,5 @@ export async function deleteDump(id: string) {
   const result = await prisma.stockProduct.delete({
     where: { id },
   });
-  console.log(result);
   return result;
 }

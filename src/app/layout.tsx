@@ -21,6 +21,9 @@ export default function RootLayout({ children }: { children: any }) {
     if (store.publishedProducts.length <= 0) {
       store.fetchPublishedProducts();
     }
+    if (!store.integration) {
+      store.fetchIntegration();
+    }
   }, []);
 
   return (

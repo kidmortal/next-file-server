@@ -25,3 +25,40 @@ export async function getMercadoLivreNewApiTokens(params: {
   return data;
   // todo
 }
+
+export async function publishMercadoLivreProduct(acessToken: string) {
+  const response = await fetch("https://api.mercadolibre.com/items", {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${acessToken}`,
+    },
+    method: "POST",
+    body: JSON.stringify({
+      site_id: "MLB",
+      title: "Item de test no ofertar",
+      category_id: "MLB1672",
+      price: 200,
+      currency_id: "BRL",
+      available_quantity: 1,
+      buying_mode: "buy_it_now",
+      listing_type_id: "gold_special",
+      pictures: [],
+      attributes: [
+        {
+          id: "ITEM_CONDITION",
+          name: "Condição do item",
+          value_id: "2230284",
+          value_name: "Novo",
+          value_struct: "null",
+          attribute_group_id: "OTHERS",
+          attribute_group_name: "Outros",
+        },
+      ],
+      catalog_product_id: "MLB20697005",
+      catalog_listing: true,
+    }),
+  });
+  const data = await response.json();
+  console.log(data);
+}
