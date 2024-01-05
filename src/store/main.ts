@@ -1,6 +1,6 @@
 import {
   getMercadoLivreIntegration,
-  updateMercadoLivreIntegration,
+  renewAppTokenMercadoLiveIntegration,
 } from "@/services/database/integration";
 import {
   createProductPublish,
@@ -105,16 +105,7 @@ const useStore = create(
     generateNewApiToken: async () => {
       const integration = get().integration;
       if (integration) {
-        const data = await getMercadoLivreNewApiTokens(integration);
-        console.log(data);
-        await updateMercadoLivreIntegration(integration.id, {
-          clientId: integration.clientId,
-          name: integration.name,
-          refreshToken: data.refresh_token,
-          secretKey: integration.secretKey,
-          uri: integration.uri,
-          appToken: data.access_token,
-        });
+        await renewAppTokenMercadoLiveIntegration();
         get().fetchIntegration();
       }
     },

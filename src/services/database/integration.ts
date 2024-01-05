@@ -1,5 +1,6 @@
 "use server";
 
+import { getMercadoLivreNewApiTokens } from "@/services/mercado";
 import { prisma } from "./db";
 
 export async function createMercadoLivreIntegration(data: {
@@ -57,4 +58,21 @@ export async function getMercadoLivreIntegration() {
     }
   }
   return integration;
+}
+
+export async function renewAppTokenMercadoLiveIntegration() {
+  const integration = await prisma.mercadoLivreIntegration.findFirst({});
+  if (integration) {
+    const newPair = await getMercadoLivreNewApiTokens(integration);
+    await prisma.mercadoLivreIntegration.update({
+      where: {
+        id: integration.id,
+      },
+      data: {
+        appToken: newPair.access_token,
+        refreshToken: newPair.refresh_token,
+        refreshTokenUpdatedAt: new Date(),
+      },
+    });
+  }
 }

@@ -1,11 +1,19 @@
 "use server";
 
+type NewApiTokenResponse = {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  scope: string;
+  user_id: number;
+  refresh_token: string;
+};
+
 export async function getMercadoLivreNewApiTokens(params: {
   clientId?: number;
   secretKey?: string;
   refreshToken?: string;
-}) {
-  console.log("refresh");
+}): Promise<NewApiTokenResponse> {
   const refreshParams = {
     grant_type: "refresh_token",
     client_id: `${params.clientId}`,
