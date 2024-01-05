@@ -37,8 +37,8 @@ export function CompactStockTable(props: CompactTableProps) {
             </Tr>
           </Thead>
           <Tbody>
-            {products.map((product) => (
-              <Tr key={product.sku}>
+            {products.map((product, i) => (
+              <Tr key={i}>
                 <Td>{product.sku}</Td>
                 <Td>{product.type}</Td>
                 <Td>{product.stock}</Td>
@@ -75,8 +75,8 @@ export default function StockTable(props: Props) {
             </Tr>
           </Thead>
           <Tbody>
-            {products.map((product) => (
-              <Tr key={product.sku}>
+            {products.map((product, i) => (
+              <Tr key={i}>
                 <Td>{product.sku}</Td>
                 <Td>{product.stock}</Td>
                 <Td>{product.type}</Td>

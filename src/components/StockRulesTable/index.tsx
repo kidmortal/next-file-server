@@ -38,8 +38,8 @@ export function CompactStockRulesTable(props: CompactStockRulesTableProps) {
             </Tr>
           </Thead>
           <Tbody>
-            {rules.map((rule) => (
-              <Tr key={rule.sku}>
+            {rules.map((rule, i) => (
+              <Tr key={i}>
                 <Td>{rule.sku}</Td>
                 <Td>{rule.category}</Td>
                 <Td>{rule.price}</Td>
@@ -78,8 +78,8 @@ export default function StockRulesTable(props: Props) {
             </Tr>
           </Thead>
           <Tbody>
-            {rules.map((rule) => (
-              <Tr key={rule.sku}>
+            {rules.map((rule, i) => (
+              <Tr key={i}>
                 <Td>{rule.sku}</Td>
                 <Td>{rule.category}</Td>
                 <Td>{rule.price}</Td>

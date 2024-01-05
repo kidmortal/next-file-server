@@ -39,8 +39,8 @@ export function PublishedProducts(props: Props) {
             </Tr>
           </Thead>
           <Tbody>
-            {products.map((product) => (
-              <Tr key={product.sku}>
+            {products.map((product, i) => (
+              <Tr key={i}>
                 <Td>{product.sku}</Td>
                 <Td>{product.price}</Td>
                 <Td>{product.publishCode}</Td>

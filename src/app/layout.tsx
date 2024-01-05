@@ -29,8 +29,8 @@ export default function RootLayout({ children }: { children: any }) {
   return (
     <html>
       <head />
-      <ChakraProvider>
-        <body className={styles.body}>
+      <body className={styles.body}>
+        <ChakraProvider>
           <Stack direction="row" spacing="1rem" width="100%">
             <SideBarMenu />
             <Stack
@@ -44,8 +44,8 @@ export default function RootLayout({ children }: { children: any }) {
               <div>{children}</div>
             </Stack>
           </Stack>
-        </body>
-      </ChakraProvider>
+        </ChakraProvider>
+      </body>
     </html>
   );
 }
