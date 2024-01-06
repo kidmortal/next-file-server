@@ -3,6 +3,7 @@ import { GoPackageDependents } from "react-icons/go";
 import { MdOutlineRule } from "react-icons/md";
 import { VscGraph } from "react-icons/vsc";
 import { SettingsIcon } from "@chakra-ui/icons";
+import { TbFileImport } from "react-icons/tb";
 import React from "react";
 import { useRouter } from "next/navigation";
 import useStore from "@/store/main";
@@ -45,6 +46,28 @@ export function SideBarMenu() {
           isDisabled={!store.user?.stockRule}
         >
           Regra de estoque
+        </Button>
+
+        <Button
+          justifyContent="flex-start"
+          leftIcon={<TbFileImport />}
+          colorScheme="teal"
+          variant="solid"
+          onClick={() => router.push("/dash/importrules")}
+          isDisabled={!store.user?.importStock}
+        >
+          Importar regras
+        </Button>
+
+        <Button
+          justifyContent="flex-start"
+          leftIcon={<TbFileImport />}
+          colorScheme="teal"
+          variant="solid"
+          onClick={() => router.push("/dash/importstock")}
+          isDisabled={!store.user?.importRules}
+        >
+          Importar estoque
         </Button>
 
         <Button

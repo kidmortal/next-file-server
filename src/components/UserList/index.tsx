@@ -10,6 +10,7 @@ import {
   Td,
   Th,
   Thead,
+  Tooltip,
   Tr,
 } from "@chakra-ui/react";
 import { GoPackageDependents } from "react-icons/go";
@@ -24,14 +25,15 @@ import {
   updateDatabaseUserPermission,
 } from "@/services/database/user";
 import useStore from "@/store/main";
+import { TbFileImport } from "react-icons/tb";
 
 const permissionIconsMap: { [key: string]: IconType } = {
   publish: VscGraph,
   stock: GoPackageDependents,
   stockRule: MdOutlineRule,
   settings: CiSettings,
-  importStock: CiSettings,
-  importRules: CiSettings,
+  importStock: TbFileImport,
+  importRules: TbFileImport,
 };
 
 export default function UserList(props: { users: User[] }) {
@@ -46,19 +48,21 @@ export default function UserList(props: { users: User[] }) {
       const permissionName = key;
       const permissionIcon = permissionIconsMap[permissionName];
       permissionIcons.push(
-        <IconButton
-          backgroundColor={enabled ? "lightgreen" : "red"}
-          aria-label={permissionName}
-          onClick={async () => {
-            await updateDatabaseUserPermission(
-              user.email,
-              permissionName,
-              !enabled
-            );
-            store.fetchAllUsers();
-          }}
-          icon={<Icon as={permissionIcon} />}
-        />
+        <Tooltip label={permissionName}>
+          <IconButton
+            backgroundColor={enabled ? "lightgreen" : "red"}
+            aria-label={permissionName}
+            onClick={async () => {
+              await updateDatabaseUserPermission(
+                user.email,
+                permissionName,
+                !enabled
+              );
+              store.fetchAllUsers();
+            }}
+            icon={<Icon as={permissionIcon} />}
+          />
+        </Tooltip>
       );
     }
     return <Stack direction="row">{permissionIcons.map((icon) => icon)}</Stack>;

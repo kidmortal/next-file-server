@@ -1,5 +1,7 @@
 "use client";
 
+import { ResourcePermissionLayout } from "@/auth";
+import NoPermission from "@/components/NoPermission";
 import StockTable from "@/components/StockTable";
 import { When } from "@/components/When";
 
@@ -10,7 +12,7 @@ export default function StockPage() {
   const store = useStore();
 
   return (
-    <div>
+    <ResourcePermissionLayout>
       <When value={store.isFetching.products}>
         <Stack>
           <Skeleton height="20px" />
@@ -25,6 +27,6 @@ export default function StockPage() {
           stockProducts={store.productsDump}
         />
       </When>
-    </div>
+    </ResourcePermissionLayout>
   );
 }

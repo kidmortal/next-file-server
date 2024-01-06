@@ -10,6 +10,7 @@ import { CompactStockRulesTable } from "@/components/StockRulesTable";
 import { When } from "@/components/When";
 import { calculatePublishProducts } from "@/utils/calculatePublish";
 import { PublishedProducts } from "@/components/PublishedProducts";
+import { ResourcePermissionLayout } from "@/auth";
 
 export default function Home() {
   const store = useStore();
@@ -23,36 +24,38 @@ export default function Home() {
   );
 
   return (
-    <div className={styles.container}>
-      <When value={isFetching}>
-        <Stack>
-          <Skeleton height="20px" />
-          <Skeleton height="20px" />
-          <Skeleton height="20px" />
-        </Stack>
-      </When>
-      <When value={!isFetching}>
-        <Stack direction={"row"} gap="1rem">
-          <Stack direction={"column"} gap="1rem">
-            <PublishPreview publishProducts={publishList} />
-            <Button
-              colorScheme="blue"
-              width="100%"
-              rightIcon={<ChevronRightIcon />}
-              onClick={() => store.publishProducts(publishList)}
-            >
-              Publicar produtos
-            </Button>
-            <PublishedProducts publishedProducts={store.publishedProducts} />
+    <ResourcePermissionLayout>
+      <div className={styles.container}>
+        <When value={isFetching}>
+          <Stack>
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
+            <Skeleton height="20px" />
           </Stack>
+        </When>
+        <When value={!isFetching}>
+          <Stack direction={"row"} gap="1rem">
+            <Stack direction={"column"} gap="1rem">
+              <PublishPreview publishProducts={publishList} />
+              <Button
+                colorScheme="blue"
+                width="100%"
+                rightIcon={<ChevronRightIcon />}
+                onClick={() => store.publishProducts(publishList)}
+              >
+                Publicar produtos
+              </Button>
+              <PublishedProducts publishedProducts={store.publishedProducts} />
+            </Stack>
 
-          <Stack direction={"column"} gap="1rem">
-            <CompactStockTable stockProducts={store.productsDump} />
+            <Stack direction={"column"} gap="1rem">
+              <CompactStockTable stockProducts={store.productsDump} />
 
-            <CompactStockRulesTable stockRuleProducts={store.ruleProducts} />
+              <CompactStockRulesTable stockRuleProducts={store.ruleProducts} />
+            </Stack>
           </Stack>
-        </Stack>
-      </When>
-    </div>
+        </When>
+      </div>
+    </ResourcePermissionLayout>
   );
 }

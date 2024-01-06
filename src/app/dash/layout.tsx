@@ -24,6 +24,7 @@ export default function RootLayout({ children }: { children: any }) {
     if (!store.integration) {
       store.fetchIntegration();
     }
+
     if (store.users.length <= 0) {
       store.fetchAllUsers();
     }
