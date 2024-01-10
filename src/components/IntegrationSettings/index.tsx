@@ -14,6 +14,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import EditIntegration from "../EditIntegration";
 import useStore from "@/store/main";
+import { censorString } from "@/utils/string";
 
 export default function IntegrationSettings(props: {
   settings: MercadoLivreIntegration | null;
@@ -28,9 +29,27 @@ export default function IntegrationSettings(props: {
       borderRadius="8px"
     >
       <span>name: {props.settings?.name}</span>
-      <span>client id: {props.settings?.clientId}</span>
-      <span>app token: {props.settings?.appToken}</span>
-      <span>refresh token: {props.settings?.refreshToken}</span>
+      <span>
+        client id:{" "}
+        {censorString({
+          input: `${props.settings?.clientId}`,
+          numberOfCharactersToCensor: 10,
+        })}{" "}
+      </span>
+      <span>
+        app token:{" "}
+        {censorString({
+          input: props.settings?.appToken,
+          numberOfCharactersToCensor: 10,
+        })}{" "}
+      </span>
+      <span>
+        refresh token:{" "}
+        {censorString({
+          input: props.settings?.refreshToken,
+          numberOfCharactersToCensor: 10,
+        })}
+      </span>
       <span>
         Atualizado em:{" "}
         {dayjs(props.settings?.refreshTokenUpdatedAt).format("DD-MM-YY HH:mm")}
