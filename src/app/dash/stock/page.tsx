@@ -1,7 +1,6 @@
 "use client";
 
-import { ResourcePermissionLayout } from "@/auth";
-import NoPermission from "@/components/NoPermission";
+import { ResourcePermissionLayout } from "@/auth/resource";
 import StockTable from "@/components/StockTable";
 import { When } from "@/components/When";
 

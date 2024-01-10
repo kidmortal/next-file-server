@@ -10,7 +10,7 @@ import { CompactStockRulesTable } from "@/components/StockRulesTable";
 import { When } from "@/components/When";
 import { calculatePublishProducts } from "@/utils/calculatePublish";
 import { PublishedProducts } from "@/components/PublishedProducts";
-import { ResourcePermissionLayout } from "@/auth";
+import { ResourcePermissionLayout } from "@/auth/resource";
 
 export default function Home() {
   const store = useStore();

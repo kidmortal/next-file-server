@@ -7,7 +7,7 @@ import IntegrationSettings from "@/components/IntegrationSettings";
 
 import { When } from "@/components/When";
 import UserList from "@/components/UserList";
-import { ResourcePermissionLayout } from "@/auth";
+import { ResourcePermissionLayout } from "@/auth/resource";
 
 export default function Home() {
   const store = useStore();

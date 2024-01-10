@@ -4,8 +4,7 @@ import { Box, useToast } from "@chakra-ui/react";
 import useStore from "@/store/main";
 
 import { UploadForm } from "@/components/UploadFile";
-
-import { ResourcePermissionLayout } from "@/auth";
+import { ResourcePermissionLayout } from "@/auth/resource";
 
 export default function Home() {
   const toast = useToast();

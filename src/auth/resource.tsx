@@ -1,35 +1,10 @@
 "use client";
 import NoPermission from "@/components/NoPermission";
 import { When } from "@/components/When";
-import { auth } from "@/firebase";
 import useStore from "@/store/main";
 import { Skeleton, Stack } from "@chakra-ui/react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React from "react";
-
-export default function AuthLayout(props: { children: React.ReactNode }) {
-  const store = useStore();
-  const pathname = usePathname();
-  const router = useRouter();
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      store.setFirebaseUser(user);
-      if (pathname.includes("login")) {
-        // redirect logged user to dash
-        router.push("/dash");
-      }
-    }
-
-    if (!user) {
-      router.push("/login");
-    }
-    if (!store.user && !store.isFetching.user) {
-      store.fetchUser(user?.email ?? "");
-    }
-  });
-
-  return <div>{props.children}</div>;
-}
 
 export function ResourcePermissionLayout(props: { children: React.ReactNode }) {
   const store = useStore();
@@ -59,7 +34,7 @@ export function ResourcePermissionLayout(props: { children: React.ReactNode }) {
   return (
     <div>
       <When
-        value={!store.isFetching.user && store.firebaseUser}
+        value={!store.isFetching.user}
         fallback={
           <Stack>
             <Skeleton height="100px" />

@@ -1,6 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import "./globals.css";
-import AuthLayout from "@/auth";
+import { AuthLayout } from "@/auth/layout";
 
 export const metadata = {
   title: "Next.js",
