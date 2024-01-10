@@ -12,10 +12,14 @@ export default function AuthLayout(props: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   auth.onAuthStateChanged((user) => {
-    if (user && pathname.includes("login")) {
-      // redirect logged user to dash
-      router.push("/dash");
+    if (user) {
+      store.setFirebaseUser(user);
+      if (pathname.includes("login")) {
+        // redirect logged user to dash
+        router.push("/dash");
+      }
     }
+
     if (!user) {
       router.push("/login");
     }
@@ -55,7 +59,7 @@ export function ResourcePermissionLayout(props: { children: React.ReactNode }) {
   return (
     <div>
       <When
-        value={!store.isFetching.user}
+        value={!store.isFetching.user && store.firebaseUser}
         fallback={
           <Stack>
             <Skeleton height="100px" />

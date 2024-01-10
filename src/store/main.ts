@@ -15,6 +15,7 @@ import {
   StockRuleProduct,
   User,
 } from "@prisma/client";
+import { User as FirebaseUser } from "firebase/auth";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -24,6 +25,7 @@ interface StoreState {
   publishedProducts: PublishedProduct[];
   integration: MercadoLivreIntegration | null;
   user?: User;
+  firebaseUser?: FirebaseUser;
   users: User[];
   isFetching: {
     user: boolean;
@@ -32,6 +34,7 @@ interface StoreState {
     publish: boolean;
     integration: boolean;
   };
+  setFirebaseUser: (u: FirebaseUser) => Promise<void>;
   publishProducts: (products: PublishProduct[]) => Promise<void>;
   fetchUser: (email: string) => Promise<void>;
   fetchAllUsers: () => Promise<void>;
@@ -48,6 +51,7 @@ const useStore = create(
     productsDump: [],
     integration: null,
     user: undefined,
+    firebaseUser: undefined,
     users: [],
     publishedProducts: [],
     isFetching: {
@@ -130,6 +134,11 @@ const useStore = create(
       set((s: StoreState) => {
         s.user = fetchedUser;
         s.isFetching.user = false;
+      });
+    },
+    setFirebaseUser: async (u) => {
+      set((s: StoreState) => {
+        s.firebaseUser = u;
       });
     },
     fetchAllUsers: async () => {
